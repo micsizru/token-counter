@@ -1,0 +1,314 @@
+{
+  "name": "token-sayar",
+  "displayName": "Token Sayar (Antigravity)",
+  "description": "Antigravity sohbetlerinin aktif bağlam (context) token kullanımını ve doluluk durumunu durum çubuğunda ve kenar çubuğunda canlı gösterir.",
+  "publisher": "local",
+  "version": "1.4.1",
+  "license": "MIT",
+  "keywords": [
+    "antigravity",
+    "token",
+    "context",
+    "vscode-extension",
+    "ai",
+    "monitor"
+  ],
+  "icon": "media/logo.png",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:tokenSayar.context"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "token-sayar-sidebar",
+          "title": "Token Sayar",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "token-sayar-sidebar": [
+        {
+          "id": "tokenSayar.context",
+          "name": "Bağlam"
+        },
+        {
+          "id": "tokenSayar.timeline",
+          "name": "Mesaj Akışı"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "tokenSayar.context",
+        "contents": "Takip duraklatıldı.\n[Takibi Sürdür](command:tokenSayar.resume)",
+        "when": "!tokenSayar.enabled"
+      },
+      {
+        "view": "tokenSayar.timeline",
+        "contents": "Bu sohbette henüz mesaj yok.",
+        "when": "tokenSayar.enabled"
+      }
+    ],
+    "commands": [
+      {
+        "command": "tokenSayar.selectConversation",
+        "title": "Sohbet Seç...",
+        "category": "Token Sayar",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "tokenSayar.followActive",
+        "title": "Aktif Sohbete Dön",
+        "category": "Token Sayar",
+        "icon": "$(target)"
+      },
+      {
+        "command": "tokenSayar.refresh",
+        "title": "Yenile",
+        "category": "Token Sayar",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "tokenSayar.pause",
+        "title": "Takibi Duraklat",
+        "category": "Token Sayar",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "tokenSayar.resume",
+        "title": "Takibi Sürdür",
+        "category": "Token Sayar",
+        "icon": "$(play)"
+      },
+      {
+        "command": "tokenSayar.toggle",
+        "title": "Takibi Aç/Kapat",
+        "category": "Token Sayar"
+      },
+      {
+        "command": "tokenSayar.showHelp",
+        "title": "Yardım",
+        "category": "Token Sayar",
+        "icon": "$(question)"
+      },
+      {
+        "command": "tokenSayar.openSettings",
+        "title": "Ayarlar",
+        "category": "Token Sayar",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "tokenSayar.openPanel",
+        "title": "Paneli Aç",
+        "category": "Token Sayar"
+      },
+      {
+        "command": "tokenSayar.openTimeline",
+        "title": "Mesaj Akışını Aç",
+        "category": "Token Sayar"
+      },
+      {
+        "command": "tokenSayar.openMenu",
+        "title": "Menü / Durum",
+        "category": "Token Sayar"
+      },
+      {
+        "command": "tokenSayar.statusBarClick",
+        "title": "Durum Çubuğu Tıklama",
+        "category": "Token Sayar"
+      },
+      {
+        "command": "tokenSayar.inspectConversation",
+        "title": "Sohbeti İncele",
+        "category": "Token Sayar"
+      },
+      {
+        "command": "tokenSayar.copyValue",
+        "title": "Değeri Kopyala",
+        "category": "Token Sayar",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "tokenSayar.pinToStatusBar",
+        "title": "Durum Çubuğunda Göster",
+        "category": "Token Sayar",
+        "icon": "$(pin)"
+      },
+      {
+        "command": "tokenSayar.unpinStatusBar",
+        "title": "Durum Çubuğunu Otomatiğe Al",
+        "category": "Token Sayar",
+        "icon": "$(close)"
+      },
+      {
+        "command": "tokenSayar.exportReport",
+        "title": "Raporu Aç",
+        "category": "Token Sayar",
+        "icon": "$(note)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "tokenSayar.selectConversation",
+          "when": "view == tokenSayar.context",
+          "group": "navigation@1"
+        },
+        {
+          "command": "tokenSayar.followActive",
+          "when": "view == tokenSayar.context && tokenSayar.inspecting",
+          "group": "navigation@2"
+        },
+        {
+          "command": "tokenSayar.refresh",
+          "when": "view == tokenSayar.context",
+          "group": "navigation@3"
+        },
+        {
+          "command": "tokenSayar.pause",
+          "when": "view == tokenSayar.context && tokenSayar.enabled",
+          "group": "navigation@4"
+        },
+        {
+          "command": "tokenSayar.resume",
+          "when": "view == tokenSayar.context && !tokenSayar.enabled",
+          "group": "navigation@4"
+        },
+        {
+          "command": "tokenSayar.showHelp",
+          "when": "view == tokenSayar.context",
+          "group": "navigation@5"
+        },
+        {
+          "command": "tokenSayar.exportReport",
+          "when": "view == tokenSayar.context",
+          "group": "z@1"
+        },
+        {
+          "command": "tokenSayar.openSettings",
+          "when": "view == tokenSayar.context",
+          "group": "z@2"
+        },
+        {
+          "command": "tokenSayar.selectConversation",
+          "when": "view == tokenSayar.timeline",
+          "group": "navigation@1"
+        },
+        {
+          "command": "tokenSayar.followActive",
+          "when": "view == tokenSayar.timeline && tokenSayar.inspecting",
+          "group": "navigation@2"
+        },
+        {
+          "command": "tokenSayar.refresh",
+          "when": "view == tokenSayar.timeline",
+          "group": "navigation@3"
+        },
+        {
+          "command": "tokenSayar.exportReport",
+          "when": "view == tokenSayar.timeline",
+          "group": "navigation@4"
+        },
+        {
+          "command": "tokenSayar.showHelp",
+          "when": "view == tokenSayar.timeline",
+          "group": "navigation@5"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "tokenSayar.copyValue",
+          "when": "viewItem == metric",
+          "group": "inline@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "tokenSayar.inspectConversation",
+          "when": "false"
+        },
+        {
+          "command": "tokenSayar.copyValue",
+          "when": "false"
+        },
+        {
+          "command": "tokenSayar.statusBarClick",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Token Sayar (Antigravity)",
+      "properties": {
+        "tokenSayar.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Eklentiyi açar veya kapatır. Kapalıyken tüm dosya izleyiciler ve zamanlayıcılar durdurulur."
+        },
+        "tokenSayar.warnPercent": {
+          "type": "number",
+          "default": 55,
+          "minimum": 1,
+          "maximum": 99,
+          "description": "Sarı 'Dolmaya başladı' uyarı eşiği (%)."
+        },
+        "tokenSayar.dangerPercent": {
+          "type": "number",
+          "default": 80,
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Turuncu/kırmızı 'Dolu' kritik eşiği (%)."
+        },
+        "tokenSayar.defaultContextLimit": {
+          "type": "number",
+          "default": 512000,
+          "minimum": 1000,
+          "description": "Model bağlam limiti belirlenemediğinde kullanılacak varsayılan bağlam limiti (token)."
+        },
+        "tokenSayar.compactDisplay": {
+          "type": "boolean",
+          "default": false,
+          "description": "Daha kısa durum çubuğu görünümü kullanır ('42K (%8)' yerine '42K / 512K (%8)')."
+        },
+        "tokenSayar.statusBarClickAction": {
+          "type": "string",
+          "enum": [
+            "openPanel",
+            "openMenu"
+          ],
+          "default": "openPanel",
+          "description": "Durum çubuğuna tıklandığında Token Sayar görünümünü mü yoksa hızlı menüyü mü açacağını belirler."
+        },
+        "tokenSayar.modelLimits": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "İsteğe bağlı model -> bağlam limiti (token) özel eşleştirme tablosu."
+        },
+        "tokenSayar.notifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Bağlam doluluğu kırmızı eşiği geçtiğinde sohbet başına bir kez uyarı bildirimi gösterir."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "node scripts/package-vsix.js",
+    "install-ext": "node scripts/install.js",
+    "uninstall-ext": "node scripts/uninstall.js",
+    "test": "node --test test/*.test.js"
+  }
+}

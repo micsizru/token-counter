@@ -1,0 +1,12 @@
+.local/
+dist/
+*.vsix
+node_modules/
+.vscode-test/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+desktop.ini
+.env
+.env.*
