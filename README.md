@@ -85,8 +85,8 @@ Takip duraklatıldığında `Bağlam` görünümünde `viewsWelcome` alanı üze
 ### Yöntem 1: Tek Komutla Kurulum (Önerilen — Windows / macOS / Linux)
 
 ```bash
-git clone https://github.com/<kullanici-adi>/token-sayar.git
-cd token-sayar
+git clone https://github.com/<kullanici-adi>/token-counter.git
+cd token-counter
 npm run install-ext
 ```
 
@@ -102,10 +102,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1
 
 ### Yöntem 2: IDE Arayüzünden Kurulum (`Install from VSIX...` — CLI Gerekmez)
 
-1. `npm run package` çalıştırarak `dist/token-sayar-1.4.1.vsix` dosyasını oluşturun (veya GitHub Releases sayfasından `.vsix` dosyasını indirin).
+1. `npm run package` çalıştırarak `dist/token-counter-1.4.1.vsix` dosyasını oluşturun (veya GitHub Releases sayfasından `.vsix` dosyasını indirin).
 2. VS Code / Antigravity IDE içinde **Extensions** panelini açın (`Ctrl+Shift+X` / `Cmd+Shift+X`).
 3. Sağ üstteki `...` (**Views and More Actions**) menüsüne tıklayın -> **Install from VSIX...** seçeneğini seçin.
-4. `dist/token-sayar-1.4.1.vsix` dosyasını seçin.
+4. `dist/token-counter-1.4.1.vsix` dosyasını seçin.
 5. Kurulum sonrası **`Ctrl+Shift+P` -> `Developer: Reload Window`** komutunu çalıştırın.
 
 ### Yöntem 3: Manuel CLI Kurulumu
@@ -113,8 +113,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1
 Önce `npm run package` ile `.vsix` dosyasını üretin, ardından hedef IDE CLI'ı ile kurun:
 
 ```bash
-code --install-extension dist/token-sayar-1.4.1.vsix --force
-antigravity-ide --install-extension dist/token-sayar-1.4.1.vsix --force
+code --install-extension dist/token-counter-1.4.1.vsix --force
+antigravity-ide --install-extension dist/token-counter-1.4.1.vsix --force
 ```
 
 > **Kurulum Sonrası Not:** Kurulum veya güncelleme sonrası yeni görünümlerin, eklenti logosunun ve başlık araç çubuklarının yüklenmesi için IDE içinde **`Ctrl+Shift+P` -> `Developer: Reload Window`** komutunu çalıştırın (veya IDE'yi kapatıp yeniden açın).
@@ -237,7 +237,7 @@ Bu bulgulara göre Token Sayar şu kademeleri kullanır:
 ### 1. Klasör ve Dosya Yapısı
 
 ```text
-token-sayar/
+token-counter/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                    # GitHub Actions CI (test ve paket doğrulaması)
@@ -286,7 +286,7 @@ token-sayar/
 
 ### 2. Dosya Sorumlulukları ve Veri Kaynakları ("Ne Nereden Geliyor?")
 
-- **`package.json`**: `local.token-sayar` kimliği (`v1.4.1`, `"icon": "media/logo.png"`), `onStartupFinished` ve `onView:tokenSayar.context` aktivasyon olayları, `viewsContainers.activitybar` (`token-sayar-sidebar`) altında 2 yerel TreeView (`tokenSayar.context`, `tokenSayar.timeline`), `viewsWelcome` boş/duraklatılmış durum içerikleri, `view/title` ve `view/item/context` menüleri ve 8 `tokenSayar.*` ayarı.
+- **`package.json`**: `local.token-counter` kimliği (`v1.4.1`, `"icon": "media/logo.png"`), `onStartupFinished` ve `onView:tokenSayar.context` aktivasyon olayları, `viewsContainers.activitybar` (`token-sayar-sidebar`) altında 2 yerel TreeView (`tokenSayar.context`, `tokenSayar.timeline`), `viewsWelcome` boş/duraklatılmış durum içerikleri, `view/title` ve `view/item/context` menüleri ve 8 `tokenSayar.*` ayarı.
 - **`src/extension.js` ve `src/extension/*`**:
   - `src/extension.js`: `activate(context)` ve `deactivate()` yaşam döngüsü; `StatusBarItem`, `TokenTracker`, `TokenSayarViews`, pencere/çalışma alanı/ayar dinleyicileri ve komut kayıtları (`pause`, `resume`, `toggle`, `refresh`, `openSettings`, `openMenu`, `statusBarClick`).
   - `src/extension/config.js`: `readConfig()`, `configsEqual(a, b)`, `getWorkspaceFolderPaths()`, `syncEnabledContext(enabled)` (`tokenSayar.enabled` context anahtarını senkronlar).
@@ -382,7 +382,7 @@ Tüm birim ve entegrasyon testlerini (sıfır-emoji hijyeni ve VSIX paket tamlı
 npm test
 ```
 
-`.vsix` kurulum paketini (`dist/token-sayar-1.4.1.vsix`) üretmek için:
+`.vsix` kurulum paketini (`dist/token-counter-1.4.1.vsix`) üretmek için:
 
 ```bash
 npm run package

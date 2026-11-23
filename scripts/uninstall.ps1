@@ -4,7 +4,10 @@ param()
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-$extensionId = 'local.token-sayar'
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$pkgJsonPath = Join-Path $repoRoot 'package.json'
+$pkg = Get-Content -Path $pkgJsonPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$extensionId = "{0}.{1}" -f $pkg.publisher, $pkg.name
 
 function Test-ExtensionInstalled {
     param(

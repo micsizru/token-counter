@@ -1,5 +1,5 @@
 {
-  "name": "token-sayar",
+  "name": "token-counter",
   "displayName": "Token Sayar (Antigravity)",
   "description": "Antigravity sohbetlerinin aktif bağlam (context) token kullanımını ve doluluk durumunu durum çubuğunda ve kenar çubuğunda canlı gösterir.",
   "publisher": "local",
